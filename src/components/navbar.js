@@ -85,7 +85,7 @@ export default function Navbar() {
                     </Link>
                     <Link href="/register"
                       className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">
-                      Get Started
+                      Register
 
                     </Link>
                   </>
@@ -116,8 +116,8 @@ export default function Navbar() {
             Login
           </Link>
           <Link href="/register"
-            className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
-            Get Started
+            className="px-6 py-2 text-white bg-indigo-600 rounded-md lg:ml-5">
+            Register
 
           </Link>
 
