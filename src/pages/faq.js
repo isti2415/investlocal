@@ -14,10 +14,8 @@ export default function Home() {
       <div className="bg-gray-900 min-h-screen">
         <Navbar />
         <Container className="">
-            <h1 className="text-4xl font-bold text-center pb-12 text-white md:text-5xl">
-              Frequently Asked Questions
-            </h1>
-  <div className="grid grid-cols-2 gap-4 p-2 mx-auto rounded-2xl">
+        <img src="/faq.png" alt="" className="w-full md:w-1/2 mb-8 md:mb-0 mx-auto" />
+  <div className="grid grid-cols-2 gap-4 p-2 mt-8 mx-auto rounded-2xl">
     {faqdata.map((item, index) => (
       <div key={item.question} className="mb-5 cols-2">
         <Disclosure>
