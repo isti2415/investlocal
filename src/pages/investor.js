@@ -11,7 +11,7 @@ const Investor = () => {
             </Head>
             <div className="bg-gray-900 min-h-screen">
                 <Navbar />
-                <div className="px-4 py-10 md:py-20">
+                <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-8">
                         <div className="mb-8 md:mb-0">
                             <h1 className="text-3xl font-bold text-gray-300 mb-8">Invest in Your Local Community with InvestLocal</h1>
