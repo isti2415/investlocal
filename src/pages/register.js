@@ -11,7 +11,8 @@ const Register = () => {
                 <div className="w-full lg:col-span-1 p-6">
                     <div className="flex items-center justify-center p-6">
                         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
-                            Welcome to InvestLocal
+                            Welcome to 
+                            <a href='/' className='text-indigo-500'> InvestLocal</a>
                         </h2>
                         <img src="/money.png" alt="InvestLocal Logo" className="h-16 ml-4" />
                     </div>
@@ -134,7 +135,7 @@ const Register = () => {
                                 .
                             </p>
                             <button
-                                className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
+                                className="inline-block shrink-0 rounded-md border border-indigo-500 bg-indigo-500 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-indigo-500 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
                             >
                                 Create an account
                             </button>
