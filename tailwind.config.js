@@ -9,7 +9,7 @@ module.exports = {
       safelist: [], // Add any classes that should not be purged (if needed)
     },
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       // Add your custom styles here
