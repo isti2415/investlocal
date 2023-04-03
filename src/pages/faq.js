@@ -3,15 +3,25 @@ import { Disclosure } from "@headlessui/react";
 import Container from "../components/container";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import DarkModeToggle from "../components/DarkModeToggle";
+import { useState } from "react";
 
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleDarkModeToggle = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const darkModeClass = darkMode ? 'dark' : '';
+
   return (
     <>
       <Head>
         <title>InvestLocal - FAQ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-gray-900 min-h-screen">
+      <div className={` bg-gray-200 ${darkModeClass} dark:bg-gray-900 min-h-screen transition-colors duration-500`}>
         <Navbar />
         <Container className="">
           <img src="/faq.png" alt="" className="w-full md:w-1/2 mb-8 md:mb-0 mx-auto" />
@@ -21,11 +31,10 @@ export default function Home() {
                 <Disclosure>
                   {({ open }) => (
                     <>
-                      <Disclosure.Button className="flex items-center justify-between w-full px-4 py-4 text-lg text-left text-gray-800 bg-gray-600 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75 dark:bg-trueGray-800 dark:text-gray-200">
+                      <Disclosure.Button className={`flex items-center justify-between w-full px-4 py-4 text-lg text-left bg-gray-700 text-white rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75 transition-colors duration-500 ease-in-out`}>
                         <span>{item.question}</span>
-
                       </Disclosure.Button>
-                      <Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-300">
+                      <Disclosure.Panel className={`px-4 pt-4 pb-2 ${darkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                         {item.answer}
                       </Disclosure.Panel>
                     </>
@@ -35,11 +44,13 @@ export default function Home() {
             ))}
           </div>
         </Container>
+        <DarkModeToggle darkMode={darkMode} onToggle={handleDarkModeToggle} />
         <Footer />
       </div>
     </>
   );
 }
+
 
 const faqdata = [
   {

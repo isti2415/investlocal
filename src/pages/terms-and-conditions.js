@@ -1,24 +1,34 @@
-// pages/terms-and-conditions.js
 import Head from "next/head";
+import { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import DarkModeToggle from "../components/DarkModeToggle";
 
 export default function TermsAndConditions() {
+    const [darkMode, setDarkMode] = useState(false);
+
+    const handleDarkModeToggle = () => {
+        setDarkMode(!darkMode);
+    };
+
+    const darkModeClass = darkMode ? 'dark' : '';
+
+
     return (
         <>
             <Head>
                 <title>InvestLocal - Terms and Conditions</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="bg-gray-900 min-h-screen">
-                <Navbar />
+            <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} min-h-screen transition-all duration-500`}>
+                <Navbar darkMode={darkMode} handleDarkModeToggle={handleDarkModeToggle} />
                 <div className="py-12 px-4 mx-12">
                     <div className="max-w-7xl mx-auto">
-                        <h1 className="text-3xl font-semibold text-white mb-4">Terms and Conditions</h1>
-                        <p className="text-white mb-4">
+                        <h1 className={`${darkMode ? 'text-white' : 'text-gray-900'} text-3xl font-semibold mb-4`}>Terms and Conditions</h1>
+                        <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-4`}>
                             Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the InvestLocal website (the "Service") operated by InvestLocal ("us", "we", or "our").
                         </p>
-                        <ul className="list-disc pl-5 text-white">
+                        <ul className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} list-disc pl-5`}>
                             <li>
                                 <strong>Your Access to and Use of the Service:</strong> Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users, and others who access or use the Service.
                             </li>
@@ -52,6 +62,7 @@ export default function TermsAndConditions() {
                         </ul>
                     </div>
                 </div>
+                <DarkModeToggle darkMode={darkMode} onToggle={handleDarkModeToggle} />
                 <Footer />
             </div>
         </>

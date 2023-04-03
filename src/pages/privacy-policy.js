@@ -1,54 +1,45 @@
 import Head from "next/head";
+import Container from "../components/container";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import DarkModeToggle from "../components/DarkModeToggle";
+import { useState } from "react";
 
-const PrivacyPolicy = () => {
+export default function PrivacyPolicy() {
+    const [darkMode, setDarkMode] = useState(false);
+
+    const handleDarkModeToggle = () => {
+        setDarkMode(!darkMode);
+    };
+
+    const darkModeClass = darkMode ? 'dark' : '';
+
     return (
         <>
             <Head>
                 <title>InvestLocal - Privacy Policy</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="bg-gray-900 min-h-screen">
+            <div className={'bg-gray-200 ${darkModeClass} dark:bg-gray-900 min-h-screen transition-colors duration-500'}>
                 <Navbar />
-                <div className="py-12 px-4 mx-12">
-                    <div className="max-w-7xl mx-auto">
-                        <h1 className="text-3xl font-semibold text-white mb-4">
-                            Privacy Policy
-                        </h1>
-                        <p className="text-white mb-4">
-                            At InvestLocal, we are committed to protecting the privacy of our users. This Privacy Policy outlines our practices regarding the collection, use, and disclosure of personal information on our platform.
-                        </p>
-                        <h2 className="text-2xl font-semibold text-white mb-4">Personal Information</h2>
-                        <p className="text-white mb-4">
-                            We may collect personal information from users, such as name, email address, and contact information. This information is collected for the purpose of creating and maintaining user accounts, facilitating transactions between users, and communicating with users about our services.
-                        </p>
-                        <h2 className="text-2xl font-semibold text-white mb-4">Sharing of Personal Information</h2>
-                        <p className="text-white mb-4">
-                            We may share personal information with third-party service providers who assist us in providing our services, such as payment processors or marketing partners. We may also share personal information with regulatory or law enforcement authorities if required by law or if we believe it is necessary to prevent illegal activities.
-                        </p>
-                        <h2 className="text-2xl font-semibold text-white mb-4">Security</h2>
-                        <p className="text-white mb-4">
-                            We take reasonable measures to protect the security of user information on our platform, but we cannot guarantee that all security measures will be effective. Users should take precautions to protect their own personal information, such as using strong passwords and avoiding sharing login credentials with others.
-                        </p>
-                        <h2 className="text-2xl font-semibold text-white mb-4">Cookies and Other Tracking Technologies</h2>
-                        <p className="text-white mb-4">
-                            We may use cookies or other tracking technologies to collect information about user preferences and usage of our platform. This information is used to improve our services and to personalize the user experience. Users may opt-out of cookies through their browser settings, but this may affect the functionality of our platform.
-                        </p>
-                        <h2 className="text-2xl font-semibold text-white mb-4">Changes to this Privacy Policy</h2>
-                        <p className="text-white mb-4">
-                            We reserve the right to update or modify this Privacy Policy at any time without prior notice. Users are responsible for regularly reviewing this policy to ensure they understand the latest version.
-                        </p>
-                        <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
-                        <p className="text-white mb-4">
-                            If you have any questions or concerns about our Privacy Policy, please contact us at support@investlocal.com.
-                        </p>
-                    </div>
-                </div>
+                <h1 className="dark:text-white text-gray-900 text-center text-3xl md:text-4xl font-bold mt-8 mb-4">Privacy Policy</h1>
+                <Container className="max-w-3xl dark:text-gray-300 text-gray-600 ">
+                    <p className="mb-4">At InvestLocal, we take your privacy seriously. This privacy policy explains how we collect, use, and protect your personal information.</p>
+                    <h2 className="text-xl md:text-2xl font-semibold mt-8 mb-4">Information We Collect</h2>
+                    <p className="mb-4">We collect personal information that you provide to us, such as your name, email address, and phone number, when you sign up for our services or contact us through our website.</p>
+                    <p className="mb-4">We also collect information automatically, such as your IP address and browser type, when you use our website.</p>
+                    <h2 className="text-xl md:text-2xl font-semibold mt-8 mb-4">How We Use Your Information</h2>
+                    <p className="mb-4">We use your personal information to provide our services to you and to communicate with you about our services. We may also use your information to improve our website and services.</p>
+                    <h2 className="text-xl md:text-2xl font-semibold mt-8 mb-4">Information Sharing</h2>
+                    <p className="mb-4">We do not share your personal information with third parties, except as necessary to provide our services to you or as required by law.</p>
+                    <h2 className="text-xl md:text-2xl font-semibold mt-8 mb-4">Data Security</h2>
+                    <p className="mb-4">We take reasonable measures to protect your personal information from unauthorized access, use, and disclosure.</p>
+                    <h2 className="text-xl md:text-2xl font-semibold mt-8 mb-4">Changes to this Privacy Policy</h2>
+                    <p className="mb-4">We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on our website.</p>
+                </Container>
+                <DarkModeToggle darkMode={darkMode} onToggle={handleDarkModeToggle} />
                 <Footer />
-            </div>
+            </div >
         </>
     );
-};
-
-export default PrivacyPolicy;
+}
