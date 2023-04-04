@@ -1,5 +1,48 @@
 import React, { useState } from 'react';
 import DarkModeToggle from '@/components/DarkModeToggle';
+import {db} from '@/pages/api/firebase';
+import {addDoc , collection} from 'firebase/firestore';
+
+
+const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const firstName = form.elements["first_name"].value;
+    const lastName = form.elements["last_name"].value;
+    const email = form.elements["email"].value;
+    const accountType = form.elements["account_type"].value;
+    const password = form.elements["password"].value;
+    const passwordConfirmation = form.elements["password_confirmation"].value;
+    const marketingAccept = form.elements["marketing_accept"].checked;
+
+    if (!firstName || !lastName || !email || !accountType || !password || !passwordConfirmation) {
+        alert("Please fill out all required fields.");
+        return;
+    }
+    if (password !== passwordConfirmation) {
+        alert("Password and password confirmation do not match.");
+        return;
+    }
+
+    const user = {
+        firstName,
+        lastName,
+        email,
+        accountType,
+        password,
+        marketingAccept,
+    };
+
+    const usersCollRef = collection(db, 'users');
+    addDoc(usersCollRef, user).then(response => {
+        console.log(response);
+        window.location.href = "/login";
+    }).catch(error => {
+        console.log(error);
+        alert("There was an error creating your account. Please try again.");
+    });
+}
 
 const Register = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -28,7 +71,7 @@ const Register = () => {
                     <h2 className={`text-2xl font-bold text-gray-800  dark:text-white mb-6`}>
                         Create an account
                     </h2>
-                    <form action="#" className="grid grid-cols-6 gap-6">
+                    <form onSubmit={handleFormSubmit} className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
                             <label
                                 htmlFor="FirstName"
