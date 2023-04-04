@@ -1,36 +1,23 @@
 import { useState, useEffect } from "react";
 import InvestorNav from "../components/investornav";
-import InvestorDashboard from "../components/investordash";
+import InvestorDashboard from "../components/investoropportunities";
 import BusinessNav from "../components/businessnav";
-import BusinessDashboard from "../components/businessdash";
+import BusinessDashboard from "../components/businessopportunities";
 import DarkModeToggle from "@/components/DarkModeToggle";
-import Cookies from 'js-cookie';
-import { collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '@/pages/api/firebase';
 
 const Dashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [accountType, setAccountType] = useState("");
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);
   };
 
   const darkModeClass = darkMode ? 'dark' : '';
+  
+  const [accountType, setAccountType] = useState("");
 
   useEffect(() => {
-    const userId = Cookies.get('user');
-    if (userId) {
-      const userRef = doc(collection(db, 'users'), userId);
-      getDoc(userRef).then((doc) => {
-        if (doc.exists()) {
-          const user = doc.data();
-          setAccountType(user.accountType);
-        }
-      }).catch((error) => {
-        console.log("Error getting user document:", error);
-      });
-    }
+    setAccountType("investor");
   }, []);
 
   return (

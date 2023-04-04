@@ -1,6 +1,35 @@
 import React, { useState } from 'react';
 import DarkModeToggle from '@/components/DarkModeToggle';
-import { db } from './api/firebase';
+import { query, where, getDocs } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
+import { db } from '@/pages/api/firebase';
+import Cookies from 'js-cookie';
+
+const usersRef = collection(db, 'users');
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  Cookies.remove('user');
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+  const q = query(usersRef, where('email', '==', email));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.empty) {
+    console.log('No matching documents.');
+    alert('Account not found');
+    return;
+  }
+  const userDoc = querySnapshot.docs[0];
+  const user = userDoc.data();
+  if (user.password === password) {
+    console.log('Login successful');
+    window.location.href = '/dashboard';
+    Cookies.set('user', userDoc.id);
+  } else {
+    console.log('Incorrect password');
+    alert('Incorrect password');
+  }
+};
 
 const Login = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -34,7 +63,7 @@ const Login = () => {
           </h2>
           <img src="/money.png" alt="InvestLocal Logo" className="h-16 ml-4" />
         </div>
-        <form action="#" className="grid grid-cols-6 gap-6 p-6">
+        <form onSubmit={handleLogin} className="grid grid-cols-6 gap-6 p-6">
           <div className="col-span-6">
             <label
               htmlFor="Email"

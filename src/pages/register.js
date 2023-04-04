@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import DarkModeToggle from '@/components/DarkModeToggle';
-import {db} from '@/pages/api/firebase';
-import {addDoc , collection} from 'firebase/firestore';
-
+import { db } from '@/pages/api/firebase';
+import { addDoc, collection } from 'firebase/firestore';
 
 const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -33,9 +32,10 @@ const handleFormSubmit = (e) => {
         password,
         marketingAccept,
     };
+    
+    const usersRef = collection(db, 'users');
 
-    const usersCollRef = collection(db, 'users');
-    addDoc(usersCollRef, user).then(response => {
+    addDoc(usersRef, user).then(response => {
         console.log(response);
         window.location.href = "/login";
     }).catch(error => {

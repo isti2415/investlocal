@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 
 const DarkModeToggle = ({ darkMode, onToggle }) => {
