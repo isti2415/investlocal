@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DarkModeToggle from '@/components/DarkModeToggle';
+import { db } from './api/firebase';
 
 const Login = () => {
   const [darkMode, setDarkMode] = useState(false);
