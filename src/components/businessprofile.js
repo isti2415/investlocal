@@ -7,7 +7,7 @@ import { db } from '@/pages/api/firebase';
 const BusinessProfile = () => {
   const [user, setUser] = useState(null);
   const [Name, setName] = useState('');
-  const [yearEstablished, setyearEstablished] = useState('');
+  const [contact, setcontact] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -25,7 +25,7 @@ const BusinessProfile = () => {
             const data = doc.data();
             setUser(data);
             setName(data.Name);
-            setyearEstablished(data.yearEstablished);
+            setcontact(data.contact);
             setEmail(data.email);
             setPhone(data.phone);
             setAddress(data.address);
@@ -49,7 +49,7 @@ const BusinessProfile = () => {
     const userRef = doc(collection(db, 'users'), userId);
     const data = {
       Name: e.target.Name.value,
-      yearEstablished: e.target.yearEstablished.value,
+      contact: e.target.contact.value,
       email: e.target.email.value,
       phone: e.target.phone.value,
       address: e.target.address.value,
@@ -88,16 +88,16 @@ const BusinessProfile = () => {
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="yearEstablished"
+              htmlFor="contact"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              Year Established
+              Contact
             </label>
             <input
-              type="text"
-              id="yearEstablished"
-              name="yearEstablished"
-              placeholder={yearEstablished}
+              type="tel"
+              id="contact"
+              name="contact"
+              placeholder={contact}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
