@@ -1,33 +1,50 @@
 import { useState, useEffect } from "react";
 import InvestorNav from "../components/investornav";
-import InvestorDashboard from "../components/investmentsearch";
+import InvestorSearch from "../components/investorsearch";
 import BusinessNav from "../components/businessnav";
-import BusinessDashboard from "../components/investorsearch";
+import InvestmentSearch from "../components/investmentsearch";
 import DarkModeToggle from "@/components/DarkModeToggle";
+import Cookies from 'js-cookie';
+import { collection, doc, getDoc } from 'firebase/firestore';
+import { db } from '@/pages/api/firebase';
 
-const Dashboard = () => {
+const Profile = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [accountType, setAccountType] = useState("");
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);
   };
 
   const darkModeClass = darkMode ? 'dark' : '';
-  
-  const [accountType, setAccountType] = useState("");
 
   useEffect(() => {
-    setAccountType("investor");
+    const userId = Cookies.get('user');
+    if (userId) {
+      const userRef = doc(collection(db, 'users'), userId);
+      getDoc(userRef).then((doc) => {
+        if (doc.exists()) {
+          const user = doc.data();
+          setAccountType(user.accountType);
+        }
+      }).catch((error) => {
+        console.log("Error getting user document:", error);
+      });
+    }
   }, []);
 
   return (
     <div className={`w-full min-h-screen ${darkModeClass} bg-gray-200 dark:bg-gray-900 transition-all duration-500`}>
       {accountType === "investor" ? (
-        <><InvestorNav />
-        <InvestorDashboard /></>
+        <>
+          <InvestorNav />
+          <InvestmentSearch />
+        </>
       ) : accountType === "business" ? (
-        <><BusinessNav />
-        <BusinessDashboard /></>
+        <>
+          <BusinessNav />
+          <InvestorSearch />
+        </>
       ) : (
         <p>Loading...</p>
       )}
@@ -36,4 +53,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Profile;
