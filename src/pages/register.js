@@ -7,15 +7,15 @@ const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const form = e.target;
-    const firstName = form.elements["first_name"].value;
-    const lastName = form.elements["last_name"].value;
+    const name = form.elements["name"].value;
+    const phone = form.elements["phone"].value;
     const email = form.elements["email"].value;
-    const accountType = form.elements["account_type"].value;
+    const accountType = form.elements["accountType"].value;
     const password = form.elements["password"].value;
-    const passwordConfirmation = form.elements["password_confirmation"].value;
-    const marketingAccept = form.elements["marketing_accept"].checked;
+    const passwordConfirmation = form.elements["passwordConfirmation"].value;
+    const marketingAccept = form.elements["marketingAccept"].checked;
 
-    if (!firstName || !lastName || !email || !accountType || !password || !passwordConfirmation) {
+    if (!name || !phone || !email || !accountType || !password || !passwordConfirmation) {
         alert("Please fill out all required fields.");
         return;
     }
@@ -25,8 +25,8 @@ const handleFormSubmit = (e) => {
     }
 
     const user = {
-        firstName,
-        lastName,
+        name,
+        phone,
         email,
         accountType,
         password,
@@ -74,29 +74,29 @@ const Register = () => {
                     <form onSubmit={handleFormSubmit} className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
                             <label
-                                htmlFor="FirstName"
+                                htmlFor="name"
                                 className={`block text-sm font-medium text-gray-700  dark:text-gray-200`}
                             >
-                                First Name
+                                Name
                             </label>
                             <input
                                 type="text"
-                                id="FirstName"
-                                name="first_name"
+                                id="name"
+                                name="name"
                                 className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
                             />
                         </div>
                         <div className="col-span-6 sm:col-span-3">
                             <label
-                                htmlFor="LastName"
+                                htmlFor="phone"
                                 className={`block text-sm font-medium text-gray-700  dark:text-gray-200`}
                             >
-                                Last Name
+                                Phone
                             </label>
                             <input
-                                type="text"
-                                id="LastName"
-                                name="last_name"
+                                type="tel"
+                                id="phone"
+                                name="phone"
                                 className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
                             />
                         </div>
@@ -118,7 +118,7 @@ const Register = () => {
                             <label htmlFor="AccountType" className={`block text-sm font-medium text-gray-700  dark:text-gray-200`}>
                                 Account Type
                             </label>
-                            <select id="AccountType" name="account_type"
+                            <select id="AccountType" name="accountType"
                                 className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}>
                                 <option value="investor">Investor</option>
                                 <option value="business">Business</option>
@@ -148,7 +148,7 @@ const Register = () => {
                             <input
                                 type="password"
                                 id="PasswordConfirmation"
-                                name="password_confirmation"
+                                name="passwordConfirmation"
                                 className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
                             />
                         </div>
@@ -157,7 +157,7 @@ const Register = () => {
                                 <input
                                     type="checkbox"
                                     id="MarketingAccept"
-                                    name="marketing_accept"
+                                    name="marketingAccept"
                                     className={`h-5 w-5 rounded-md border-gray-300 bg-gray-200 shadow-sm  dark:border-gray-700 dark:bg-gray-800 dark:focus:ring-offset-gray-900`}
                                 />
                                 <span className={`text-sm text-gray-700  dark:text-gray-200`}>

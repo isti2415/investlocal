@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import ChangePassword from './changepassword';
-import { collection, doc, getDoc,setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc,setDoc } from 'firebase/firestore';
 import { db } from '@/pages/api/firebase';
 
 const BusinessProfile = () => {
   const [user, setUser] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
+  const [date, setdate] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -24,8 +24,8 @@ const BusinessProfile = () => {
           if (doc.exists) {
             const data = doc.data();
             setUser(data);
-            setFirstName(data.firstName);
-            setLastName(data.lastName);
+            setName(data.name);
+            setdate(data.date);
             setEmail(data.email);
             setPhone(data.phone);
             setAddress(data.address);
@@ -48,16 +48,16 @@ const BusinessProfile = () => {
     const userId = Cookies.get('user');
     const userRef = doc(collection(db, 'users'), userId);
     const data = {
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      address: e.target.address.value,
-      website: e.target.website.value,
-      linkedin: e.target.linkedin.value,
-      netWorth: e.target.netWorth.value,
+      name: e.target.name.value || name,
+      date: e.target.date.value || date,
+      email: e.target.email.value || email,
+      phone: e.target.phone.value || phone,
+      address: e.target.address.value || address,
+      website: e.target.website.value || website,
+      linkedin: e.target.linkedin.value || linkedin,
+      netWorth: e.target.netWorth.value || netWorth,
     };
-    await setDoc(userRef, data,{merge: false});
+    await setDoc(userRef, data,{merge: true});
   };
 
   return (
@@ -73,31 +73,31 @@ const BusinessProfile = () => {
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="FirstName"
+              htmlFor="name"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              First Name
+              Name
             </label>
             <input
               type="text"
-              id="FirstName"
-              name="firstName"
-              placeholder={firstName}
+              id="name"
+              name="name"
+              placeholder={name}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="LastName"
+              htmlFor="date"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              Last Name
+              Date of Birth
             </label>
             <input
-              type="text"
-              id="LastName"
-              name="lastName"
-              placeholder={lastName}
+              type="date"
+              id="date"
+              name="date"
+              placeholder={date}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
