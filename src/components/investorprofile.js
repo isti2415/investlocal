@@ -6,8 +6,8 @@ import { db } from '@/pages/api/firebase';
 
 const InvestorProfile = () => {
   const [user, setUser] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [Name, setName] = useState('');
+  const [contact, setcontact] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -24,8 +24,8 @@ const InvestorProfile = () => {
           if (doc.exists) {
             const data = doc.data();
             setUser(data);
-            setFirstName(data.firstName);
-            setLastName(data.lastName);
+            setName(data.Name);
+            setcontact(data.contact);
             setEmail(data.email);
             setPhone(data.phone);
             setAddress(data.address);
@@ -48,8 +48,8 @@ const InvestorProfile = () => {
     const userId = Cookies.get('user');
     const userRef = doc(collection(db, 'users'), userId);
     const data = {
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
+      Name: e.target.Name.value,
+      contact: e.target.contact.value,
       email: e.target.email.value,
       phone: e.target.phone.value,
       address: e.target.address.value,
@@ -73,31 +73,31 @@ const InvestorProfile = () => {
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="FirstName"
+              htmlFor="Name"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              First Name
+              Name
             </label>
             <input
               type="text"
-              id="FirstName"
-              name="firstName"
-              placeholder={firstName}
+              id="Name"
+              name="Name"
+              placeholder={Name}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="LastName"
+              htmlFor="contact"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              Last Name
+              Contact
             </label>
             <input
               type="text"
-              id="LastName"
-              name="lastName"
-              placeholder={lastName}
+              id="contact"
+              name="contact"
+              placeholder={contact}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
