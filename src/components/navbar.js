@@ -91,7 +91,7 @@ export default function Navbar() {
               <li className="mr-3 nav__item" key={index}>
                 <Link
                   href={menu.href}
-                  className={`inline-block px-4 py-2 text-lg font-normal text-gray-700 ${darkModeClass} dark:text-gray-100 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}>
+                  className={`inline-block px-4 py-2 text-lg font-normal text-gray-700 ${darkModeClass} dark:text-gray-100 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none z-10`}>
                   {menu.name}
                 </Link>
               </li>
