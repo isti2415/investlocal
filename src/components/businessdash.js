@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function MyBusiness() {
   return (
     <div className="container mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-gray-700 dark:text-gray-100">My Investors</h1>
+      <h1 className="text-3xl font-bold mb-8 text-gray-700 dark:text-gray-100">My Business</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (
           <div

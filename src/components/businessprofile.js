@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import ChangePassword from './changepassword';
-import { collection, doc, getDoc,setDoc} from 'firebase/firestore';
+import { collection, doc, getDoc,setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/pages/api/firebase';
 
 const BusinessProfile = () => {
   const [user, setUser] = useState(null);
-  const [Name, setName] = useState('');
-  const [contact, setcontact] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -24,8 +24,8 @@ const BusinessProfile = () => {
           if (doc.exists) {
             const data = doc.data();
             setUser(data);
-            setName(data.Name);
-            setcontact(data.contact);
+            setFirstName(data.firstName);
+            setLastName(data.lastName);
             setEmail(data.email);
             setPhone(data.phone);
             setAddress(data.address);
@@ -48,8 +48,8 @@ const BusinessProfile = () => {
     const userId = Cookies.get('user');
     const userRef = doc(collection(db, 'users'), userId);
     const data = {
-      Name: e.target.Name.value,
-      contact: e.target.contact.value,
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
       email: e.target.email.value,
       phone: e.target.phone.value,
       address: e.target.address.value,
@@ -73,31 +73,31 @@ const BusinessProfile = () => {
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="Name"
+              htmlFor="FirstName"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              Name
+              First Name
             </label>
             <input
               type="text"
-              id="Name"
-              name="Name"
-              placeholder={Name}
+              id="FirstName"
+              name="firstName"
+              placeholder={firstName}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
           <div className="col-span-6 sm:col-span-3">
             <label
-              htmlFor="contact"
+              htmlFor="LastName"
               className={`block text-sm font-medium text-gray-700 dark:text-gray-200`}
             >
-              Contact
+              Last Name
             </label>
             <input
-              type="tel"
-              id="contact"
-              name="contact"
-              placeholder={contact}
+              type="text"
+              id="LastName"
+              name="lastName"
+              placeholder={lastName}
               className={`mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200`}
             />
           </div>
