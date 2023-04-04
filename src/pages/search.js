@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import InvestorNav from "../components/investornav";
-import InvestorDashboard from "../components/investoropportunities";
+import InvestorDashboard from "../components/investmentsearch";
 import BusinessNav from "../components/businessnav";
-import BusinessDashboard from "../components/businessopportunities";
+import BusinessDashboard from "../components/investorsearch";
 import DarkModeToggle from "@/components/DarkModeToggle";
 
 const Dashboard = () => {

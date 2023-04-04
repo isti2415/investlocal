@@ -17,7 +17,7 @@ export default function InvestorNav() {
             href: '/dashboard'
         },
         {
-            name: 'Potential Investors',
+            name: 'Investor Search',
             href: '/search'
         },
         {

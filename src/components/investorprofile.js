@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import ChangePassword from './changepassword';
-import { collection, doc, getDoc,setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc,setDoc } from 'firebase/firestore';
 import { db } from '@/pages/api/firebase';
 
 const InvestorProfile = () => {
