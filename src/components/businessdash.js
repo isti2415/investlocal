@@ -16,11 +16,11 @@ const InvestorSearch = () => {
             const data = docSnap.data();
             let q;
 
-            if (data.myInvestments && data.myInvestments.length > 0) {
+            if (data.myInvestors && data.myInvestors.length > 0) {
                 q = query(
                     collection(db, 'users'),
-                    where('accountType', '==', 'business'),
-                    where('name', 'in', data.myInvestments)
+                    where('accountType', '==', 'investor'),
+                    where('name', 'in', data.myInvestors)
                 );
             } else {
                 q = null;
