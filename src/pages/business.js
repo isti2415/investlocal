@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import DarkModeToggle from "../components/DarkModeToggle";
 import { useState } from "react";
 
@@ -60,8 +59,6 @@ const SmallBusiness = () => {
                     <p className="pt-8 text-blue-300 text-xl">InvestLocal is committed to supporting small businesses and helping them grow. Join our community today and start connecting with local investors!</p>
                 </div>
                 <DarkModeToggle darkMode={darkMode} onToggle={handleDarkModeToggle} />
-                <Footer darkMode={darkMode} />
-
             </div>
         </>
     );

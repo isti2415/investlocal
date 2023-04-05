@@ -20,12 +20,12 @@ export default function Hero() {
             <div className="mt-5 flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
               <a
                 href="/login"
-                className="inline-block px-8 py-4 text-xl font-medium text-center text-gray-100 bg-gray-600 rounded-md hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 transition duration-300 ease-in-out">
+                className="inline-block px-8 py-4 text-xl font-medium text-center text-gray-100 bg-gray-600 rounded-md hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 transition-all duration-500">
                 Login Now
               </a>
               <a
                 href="/register"
-                className="inline-block px-8 py-4 text-xl font-medium text-center text-gray-100 bg-indigo-600 rounded-md hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2 transition duration-300 ease-in-out">
+                className="inline-block px-8 py-4 text-xl font-medium text-center text-gray-100 bg-indigo-600 rounded-md hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2 transition-all duration-500">
                 Register Now
               </a>
             </div>

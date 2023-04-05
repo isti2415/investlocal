@@ -13,7 +13,7 @@ export default function Footer() {
   ];
 
   return (
-    <div className="relative">
+    <div className="float bottom-0 w-full bg-gray-200 dark:bg-gray-900 transition-all duration-500">
       <Container>
         <div className="flex justify-between mx-auto border-t border-gray-700 ${darkModeClass} dark:border-gray-300">
           <div className="flex items-center mt-5">

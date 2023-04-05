@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import { useState } from "react";
 import DarkModeToggle from "@/components/DarkModeToggle";
 
@@ -20,7 +19,7 @@ const Investor = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div
-                className={`${darkMode ? "bg-gray-900" : "bg-white"
+                className={`${darkMode ? "bg-gray-900" : "bg-gray-200"
                     } min-h-screen transition-all duration-500`}
             >
                 <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -83,7 +82,6 @@ const Investor = () => {
                     <p className="pt-8 text-blue-300 text-xl">InvestLocal is committed to supporting local businesses and helping investors make smart investment decisions. Join our community today and start investing in your local economy!</p>
                 </div>
                 <DarkModeToggle darkMode={darkMode} onToggle={toggleDarkMode} />
-                <Footer />
             </div>
         </>
     );

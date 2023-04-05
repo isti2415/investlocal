@@ -1,66 +1,79 @@
-import React from 'react';
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import { collection, query, where, getDocs, doc, setDoc, arrayUnion } from 'firebase/firestore';
+import { db } from '@/pages/api/firebase'
+import { FaLinkedin } from 'react-icons/fa';
+import Cookies from 'js-cookie';
 
-export default function MyBusiness() {
-  return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-gray-700 dark:text-gray-100">My Investors</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-500"
-          >
-            <div className="relative h-40">
-              <Image
-                src={project.logo}
-                alt={project.businessName}
-                className="object-cover w-full h-full"
-                layout='fill'
-                objectFit='cover'
-              />
+const InvestorSearch = () => {
+    const [investorAccounts, setInvestorAccounts] = useState([]);
+    const [selectedInvestor, setSelectedInvestor] = useState(null);
+    const userId = Cookies.get('user');
+
+    useEffect(() => {
+        const fetchInvestorAccounts = async () => {
+            const userRef = doc(collection(db, 'users'), userId);
+            const docSnap = await getDocs(userRef);
+            const data = docSnap.data();
+            const myInvestors = data.myInvestors;
+            const q = query(collection(db, 'users'), where('accountType', '==', 'investor'), where('name', 'in', myInvestors));
+            const querySnapshot = await getDocs(q);
+            const accounts = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                accounts.push({
+                    id: doc.id,
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    address: data.address,
+                    linkedin: data.linkedin,
+                    netWorth: data.netWorth,
+                    date: data.date,
+                    website: data.website,
+                });
+            });
+            setInvestorAccounts(accounts);
+        };
+        fetchInvestorAccounts();
+    }, []);
+
+    const handleInvestClick = async () => {
+        const userRef = doc(collection(db, 'users'), userId);
+        if (selectedInvestor) {
+            await setDoc(userRef, {
+                myInvestors: arrayUnion(selectedInvestor.name)
+            },{merge: true});
+        }
+    }
+
+    return (
+        <div className="container mx-auto px-4 mb-8">
+            <h1 className="text-3xl font-bold mb-8 text-gray-700 dark:text-gray-100">My Investors</h1>
+            <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-6 mx-auto max-w-8xl">
+                {investorAccounts.map((account) => (
+                    <div key={account.id} className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6">
+                        <div className="text-2xl pb-4 text-center font-medium text-gray-900 dark:text-white mb-2">{account.name}</div>
+                        <div className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Email: {account.email}</div>
+                        <div className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Phone: {account.phone}</div>
+                        <div className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Address: {account.address}</div>
+                        <div className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Net Worth: ${account.netWorth}</div>
+                        <div className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Website: {account.website}</div>
+                        <div className="float bottom-4 w-full">
+                            <div className="flex justify-between items-center pt-4">
+                                <a href={account.linkedin} target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-700"> <FaLinkedin className='text-4xl' /> </a>
+                                <button onClick={() => {
+                                    setSelectedInvestor(account);
+                                    handleInvestClick();
+                                }} className="bg-indigo-500 hover:bg-indigo-700 text-gray-200 font-bold py-2 px-4 rounded">
+                                    Invest
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
-            <div className="p-4 text-black dark:text-white">
-              <h2 className="text-lg font-bold mb-2">
-                {project.businessName}
-              </h2>
-              <div className="flex justify-between">
-                <p className="text-gray-700 dark:text-gray-300">
-                  Project Budget: ${project.projectBudget}
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Profit Earned: ${project.profitEarned}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
 
-const projects = [
-  {
-    id: 1,
-    businessName: "ABC Inc.",
-    logo: "/Asset 1.png",
-    profitEarned: 3500,
-    projectBudget: 10000,
-  },
-  {
-    id: 2,
-    businessName: "XYZ Corp.",
-    logo: "/Asset 2.png",
-    profitEarned: 5400,
-    projectBudget: 20000,
-  },
-  {
-    id: 3,
-    businessName: "PQR Ltd.",
-    logo: "/Asset 5.png",
-    profitEarned: 1200,
-    projectBudget: 5000,
-  },
-  // Add more projects here
-];
+export default InvestorSearch;

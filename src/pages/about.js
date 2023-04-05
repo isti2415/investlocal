@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import { useState } from "react";
 import DarkModeToggle from "@/components/DarkModeToggle";
 
@@ -33,7 +32,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
-        className={`${darkMode ? "bg-gray-900 text-gray-300" : "bg-white text-gray-700"
+        className={`${darkMode ? "bg-gray-900 text-gray-300" : "bg-gray-200 text-gray-700"
           } min-h-screen transition duration-500`}
       >
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -115,7 +114,6 @@ export default function Home() {
           </div >
         </div >
         <DarkModeToggle darkMode={darkMode} onToggle={toggleDarkMode} />
-        <Footer darkMode={darkMode} />
       </div >
     </>
   );

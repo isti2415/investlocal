@@ -2,7 +2,6 @@ import Head from "next/head";
 import { Disclosure } from "@headlessui/react";
 import Container from "../components/container";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import DarkModeToggle from "../components/DarkModeToggle";
 import { useState } from "react";
 
@@ -45,7 +44,6 @@ export default function Home() {
           </div>
         </Container>
         <DarkModeToggle darkMode={darkMode} onToggle={handleDarkModeToggle} />
-        <Footer />
       </div>
     </>
   );

@@ -23,7 +23,6 @@ export default function Home() {
       <div className={`min-h-screen ${darkModeClass} bg-gray-200 dark:bg-gray-900 transition-all duration-500`}>
         <Navbar darkMode={darkMode} />
         <Hero darkMode={darkMode} />
-        <Footer darkMode={darkMode} />
       </div>
       <DarkModeToggle darkMode={darkMode} onToggle={handleDarkModeToggle} />
     </>
