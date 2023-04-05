@@ -14,11 +14,18 @@ const InvestmentSearch = () => {
             const userRef = doc(collection(db, 'users'), userId);
             const docSnap = await getDoc(userRef);
             const data = docSnap.data();
-            const q = query(
+            let q = query(
                 collection(db, 'users'),
-                where('accountType', '==', 'business'),
-                where('name', 'not-in', data.myInvestments)
+                where('accountType', '==', 'business')
               );
+            
+              if (data.myInvestors && data.myInvestors.length > 0) {
+                q = query(
+                  collection(db, 'users'),
+                  where('accountType', '==', 'business'),
+                  where('name', 'not-in', data.myInvestments)
+                );
+              }
             const querySnapshot = await getDocs(q);
             const accounts = [];
             querySnapshot.forEach((doc) => {

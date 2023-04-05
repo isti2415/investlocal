@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, getDocs, doc, setDoc, arrayUnion } from 'firebase/firestore';
+import { collection, query, where, getDocs, getDoc,doc, setDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '@/pages/api/firebase'
 import { FaLinkedin } from 'react-icons/fa';
 import Cookies from 'js-cookie';
@@ -12,10 +12,20 @@ const InvestorSearch = () => {
     useEffect(() => {
         const fetchInvestorAccounts = async () => {
             const userRef = doc(collection(db, 'users'), userId);
-            const docSnap = await getDocs(userRef);
+            const docSnap = await getDoc(userRef);
             const data = docSnap.data();
-            const myInvestors = data.myInvestors;
-            const q = query(collection(db, 'users'), where('accountType', '==', 'investor'), where('name', 'in', myInvestors));
+            let q = query(
+                collection(db, 'users'),
+                where('accountType', '==', 'what')
+              );
+            
+              if (data.myInvestors && data.myInvestors.length > 0) {
+                q = query(
+                  collection(db, 'users'),
+                  where('accountType', '==', 'investor'),
+                  where('name', 'in', data.myInvestors)
+                );
+              }
             const querySnapshot = await getDocs(q);
             const accounts = [];
             querySnapshot.forEach((doc) => {
@@ -42,12 +52,12 @@ const InvestorSearch = () => {
         if (selectedInvestor) {
             await setDoc(userRef, {
                 myInvestors: arrayUnion(selectedInvestor.name)
-            },{merge: true});
+            }, { merge: true });
         }
     }
 
     return (
-        <div className="container mx-auto px-4 mb-8">
+        <div className="container mx-auto px-4 mb-8 ">
             <h1 className="text-3xl font-bold mb-8 text-gray-700 dark:text-gray-100">My Investors</h1>
             <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-6 mx-auto max-w-8xl">
                 {investorAccounts.map((account) => (

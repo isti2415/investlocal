@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, getDocs, doc, setDoc, arrayUnion } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, setDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '@/pages/api/firebase'
 import { FaLinkedin } from 'react-icons/fa';
 import Cookies from 'js-cookie';
@@ -12,10 +12,20 @@ const InvestorSearch = () => {
     useEffect(() => {
         const fetchInvestorAccounts = async () => {
             const userRef = doc(collection(db, 'users'), userId);
-            const docSnap = await getDocs(userRef);
+            const docSnap = await getDoc(userRef);
             const data = docSnap.data();
-            const myInvestors = data.myInvestors;
-            const q = query(collection(db, 'users'), where('accountType', '==', 'investor'));
+            let q = query(
+                collection(db, 'users'),
+                where('accountType', '==', 'investor')
+              );
+            
+              if (data.myInvestors && data.myInvestors.length > 0) {
+                q = query(
+                  collection(db, 'users'),
+                  where('accountType', '==', 'investor'),
+                  where('name', 'not-in', data.myInvestors)
+                );
+              }
             const querySnapshot = await getDocs(q);
             const accounts = [];
             querySnapshot.forEach((doc) => {
