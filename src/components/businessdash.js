@@ -65,7 +65,7 @@ const InvestorSearch = () => {
                                     setSelectedInvestor(account);
                                     handleInvestClick();
                                 }} className="bg-indigo-500 hover:bg-indigo-700 text-gray-200 font-bold py-2 px-4 rounded">
-                                    Invest
+                                    Report
                                 </button>
                             </div>
                         </div>
