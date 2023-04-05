@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, getDocs,getDoc ,doc, setDoc, arrayUnion } from 'firebase/firestore';
+import { collection, query, where, getDocs, getDoc, doc, setDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '@/pages/api/firebase'
 import { FaLinkedin } from 'react-icons/fa';
 import Cookies from 'js-cookie';
@@ -14,18 +14,17 @@ const InvestmentSearch = () => {
             const userRef = doc(collection(db, 'users'), userId);
             const docSnap = await getDoc(userRef);
             const data = docSnap.data();
-            let q = query(
-                collection(db, 'users'),
-                where('accountType', '==', 'what')
-              );
-            
-              if (data.myInvestors && data.myInvestors.length > 0) {
+            let q;
+
+            if (data.myInvestments && data.myInvestments.length > 0) {
                 q = query(
-                  collection(db, 'users'),
-                  where('accountType', '==', 'business'),
-                  where('name', 'in', data.myInvestments)
+                    collection(db, 'users'),
+                    where('accountType', '==', 'business'),
+                    where('name', 'in', data.myInvestments)
                 );
-              }
+            } else {
+                q = null;
+            }
             const querySnapshot = await getDocs(q);
             const accounts = [];
             querySnapshot.forEach((doc) => {
@@ -52,7 +51,7 @@ const InvestmentSearch = () => {
         if (selectedBusiness) {
             await setDoc(userRef, {
                 myInvestments: arrayUnion(selectedBusiness.name)
-            },{merge: true});
+            }, { merge: true });
         }
     }
 
